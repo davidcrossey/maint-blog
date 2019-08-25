@@ -1,4 +1,7 @@
 d:first each .Q.opt .z.x;
+
+if[not `database in key d; -1 "Usage: q setuphdb.q -database \"hdbdir\""; exit 1];
+
 system "mkdir -p ",d[`database];
 hdbdir:hsym `$first system raze "readlink -f ",d[`database];
 
@@ -20,7 +23,7 @@ trades:mktrades[`aapl`goog`ibm;1000000];
 exit 0;
 
 /sample execution
-/$ q setuphdb.q -q -database "hdbdir"
+/$ q setuphdb.q -database "hdbdir"
 
 /Sample trade code taken from Q for Mortals 3 by Jeffry A. Borror
 /https://code.kx.com/q4m3/1_Q_Shock_and_Awe/#117-example-trades-table
