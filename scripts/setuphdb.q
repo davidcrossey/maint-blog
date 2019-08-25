@@ -1,4 +1,5 @@
 d:first each .Q.opt .z.x;
+system "mkdir -p ",d[`database];
 hdbdir:hsym `$first system raze "readlink -f ",d[`database];
 
 mktrades:{[tickers; sz]
