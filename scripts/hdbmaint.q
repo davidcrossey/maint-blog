@@ -1,15 +1,17 @@
-/// Parameter handling
-d:first each .Q.opt .z.x;
-database:hsym `$first system raze "readlink -f ",d[`database];
-
 /// Logging utilities
 \d .log
 print:{(-1)(" " sv string (.z.D;.z.T)),x;};
 out:{[x]print[": INFO : ",x]};
 err:{[x]print[": ERROR : ",x]};
 errexit:{err x;err"Exiting";exit 1};
-sucexit:{out "Exiting";exit 0};
+sucexit:{out "Success. Exiting";exit 0};
 \d .
+
+/// Parameter handling
+d:first each .Q.opt .z.x;
+if[not `database in key d; .log.out "Usage: hdbmaint.q -database \"hdbdir\""; .log.errexit "Missing parameter"];
+database:hsym `$first system raze "readlink -f ",d[`database];
+if[not `addcol in key d; .log.out "Attempting to load dbmaint.q in current directory"; @[value;"system \"l ./dbmaint.q\""; {.log.errexit "Cound not load dbmaint.q"}]];
 
 /// Function definitions
 backup_hdb:{[x]
@@ -67,9 +69,9 @@ main:{
     .log.out "Maintenance complete";
 
     checks "Post";
+
+    .log.sucexit[];
  }
 
 /// Entry point
 @[main;`;{.log.err "Error running main: ",x;exit 1}];
-
-.log.sucexit;
