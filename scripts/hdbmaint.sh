@@ -1,16 +1,15 @@
 #!/bin/sh
 
-export BAK_DIR=`date +%F-%H-%M-%S`
+usage() {
+    echo -e "\nRequirements:\n\t./dbmaint.q\n" \
+            "\nUsage:\n\tbash hdbmaint.sh <hdb_directory>"
+            
+    exit 1
+}
 
-echo "Backing up HDB tables prior to maintenance"
-echo "HDB Directory: ${1}"
-echo "Backup Directory: `dirname ${1}`"
+if [ ! $1 ]; then
+    usage
+fi
 
-echo "Creating hdbdir_bak/$BAK_DIR"
-mkdir -p `dirname ${1}`/hdbdir_bak/$BAK_DIR
-
-cp -r --parents $1/* `dirname ${1}`/hdbdir_bak/$BAK_DIR
-echo "Backup complete"
-
-taskset -c 0 q ./dbmaint.q -database `readlink -f $1` <<< '\l hdbmaint.q'
+taskset -c 0 q ./dbmaint.q -database `readlink -f $1` -c 2000 2000 <<< '\l hdbmaint.q'
 exit 0
