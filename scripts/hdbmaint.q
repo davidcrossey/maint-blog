@@ -21,10 +21,10 @@ backup_hdb:{[x]
     .log.out "Backup Directory: ",backup_path;
 
     .log.out "Creating ",backup_dir;
-    .log.out "mkdir -p ",1_ backup_path,backup_dir;
+    system "mkdir -p ",1_ backup_path,backup_dir;
 
     .log.out "Copying database..."
-    .log.out "cp -r --parents ",(1_ string[x]),"/* ",(1_ backup_path,backup_dir);
+    system "rsync -aL ",(1_ string[x]),"/ ",(1_ backup_path,backup_dir);
 
     .log.out "Backup complete";
  }
