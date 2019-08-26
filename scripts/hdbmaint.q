@@ -11,7 +11,7 @@ sucexit:{out "Success. Exiting";exit 0};
 d:first each .Q.opt .z.x;
 if[not `database in key d; .log.out "Usage: hdbmaint.q -database \"hdbdir\""; .log.errexit "Missing parameter"];
 database:hsym `$first system raze "readlink -f ",d[`database];
-if[not `addcol in key d; .log.out "Attempting to load dbmaint.q in current directory"; @[value;"system \"l ./dbmaint.q\""; {.log.errexit "Cound not load dbmaint.q"}]];
+if[not `addcol in key d; .log.out "Attempting to load dbmaint.q in current directory"; @[value;"system \"l ./dbmaint.q\""; {.log.errexit "Could not load dbmaint.q"}]];
 
 /// Function definitions
 backup_hdb:{[x]
