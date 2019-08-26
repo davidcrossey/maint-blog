@@ -18,7 +18,7 @@ backup_hdb:{[x]
     backup_path:(first system "dirname ",string[x]),"/";
     backup_dir:"hdbdir_bak/",{ssr[x;y;"-"]}/["-" sv string each (.z.D;.z.T);(".";":")];
     
-    .log.out "Backing up HDB tables proir to maintenance";
+    .log.out "Backing up HDB tables prior to maintenance";
     .log.out "HDB Directory: ",string x;
     .log.out "Backup Directory: ",backup_path;
 
