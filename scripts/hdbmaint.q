@@ -14,19 +14,19 @@ database:hsym `$first system raze "readlink -f ",d[`database];
 if[not `addcol in key d; .log.out "Attempting to load dbmaint.q in current directory"; @[value;"system \"l ./dbmaint.q\""; {.log.errexit "Could not load dbmaint.q"}]];
 
 /// Function definitions
-backup_hdb:{[x]
+backup:{[x]
     backup_path:(first system "dirname ",string[x]),"/";
     backup_dir:"hdbdir_bak/",{ssr[x;y;"-"]}/["-" sv string each (.z.D;.z.T);(".";":")];
     
-    .log.out "Backing up HDB tables prior to maintenance";
+    .log.out "Backing up sym file prior to maintenance";
     .log.out "HDB Directory: ",string x;
     .log.out "Backup Directory: ",backup_path;
 
     .log.out "Creating ",backup_dir;
     system "mkdir -p ",1_ backup_path,backup_dir;
 
-    .log.out "Copying database..."
-    system "rsync -aL ",(1_ string[x]),"/ ",(1_ backup_path,backup_dir);
+    .log.out "Copying sym file...";
+    system "rsync -aL ",(1_ string[x]),"/sym ",(1_ backup_path,backup_dir);
 
     .log.out "Backup complete";
  }
@@ -52,7 +52,7 @@ checks:{[x]
 
 /// Main body
 main:{
-    backup_hdb database;
+    backup database;
 
     checks "pre";
     
