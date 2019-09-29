@@ -1,9 +1,9 @@
 d:first each .Q.opt .z.x;
 
-if[not `database in key d; -1 "Usage: q setuphdb.q -database \"hdbdir\""; exit 1];
+if[not `db in key d; -1 "Usage: q setuphdb.q -db \"hdb\""; exit 1];
 
-system "mkdir -p ",d[`database];
-hdbdir:hsym `$first system raze "readlink -f ",d[`database];
+system "mkdir -p ",d[`db];
+hdb:hsym `$first system raze "readlink -f ",d[`db];
 
 mktrades:{[tickers; sz]
   dt:2015.01.01+sz?10;
@@ -15,15 +15,16 @@ mktrades:{[tickers; sz]
   t:`dt`tm xasc t;
   t:update px:6*px from t where sym=`goog;
   t:update px:2*px from t where sym=`ibm;
+  t:update val:qty*px from t;
   t};
 trades:mktrades[`aapl`goog`ibm;1000000];
 
-{[x;y;z] hsym[`$(string[x],"/",string[y],"/trades/")] set .Q.en[x] delete dt from ?[z;enlist (in;`dt;y);0b;()]}[hdbdir;;trades] each asc exec distinct dt from trades;
+{[x;y;z] hsym[`$(string[x],"/",string[y],"/trades/")] set .Q.en[x] delete dt from ?[z;enlist (in;`dt;y);0b;()]}[hdb;;trades] each asc exec distinct dt from trades;
 
 exit 0;
 
 /sample execution
-/$ q setuphdb.q -database "hdbdir"
+/$ q setuphdb.q -db "hdb"
 
 /Sample trade code taken from Q for Mortals 3 by Jeffry A. Borror
 /https://code.kx.com/q4m3/1_Q_Shock_and_Awe/#117-example-trades-table
