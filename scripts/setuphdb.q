@@ -1,6 +1,6 @@
 d:first each .Q.opt .z.x;
 
-if[not `db in key d; -1 "Usage: q setuphdb.q -db \"hdb\""; exit 1];
+if[not `db in key d; -1 "Usage: q setuphdb.q -db hdb"; exit 1];
 
 system "mkdir -p ",d[`db];
 hdb:hsym `$first system raze "readlink -f ",d[`db];
