@@ -26,7 +26,7 @@ load_db:{
  }
 
 param_check:{
-    requiredInputs:`addcol`deletecol`renamecol`fncol!(`table`colname`colvalue;`table`colname;`table`oldname`newname;`table`colname`fn);
+    requiredInputs:`addcol`deletecol`renamecol`fncol!(`table`colname`fn;`table`colname;`table`oldname`newname;`table`colname`fn);
     
     params:requiredInputs[y];
     if[not all params in key[x]; .log.usage[params]];
@@ -57,7 +57,7 @@ main:{
 
     $[
         action~`addcol;
-            addcol[db;`$d[`table];`$d[`colname];d[`colvalue]];
+            addcol[db;`$d[`table];`$d[`colname];value d[`fn]];
         action~`deletecol;
             deletecol[db;`$d[`table];`$d[`colname]];
         action~`renamecol;
