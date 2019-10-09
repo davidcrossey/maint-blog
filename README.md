@@ -8,5 +8,5 @@ Source code used in kdb/q Insights: Maintenance with q blog
 * **David Crossey** - *Blog & Code author* - [KxSystems](https://github.com/KxSystems)
 
 ## Acknowledgments
-* *Tom Martin* -  review blog drafts & code
+* *Tom Martin, PJ O'Kane, Rian O'Cuinneagain* -  review blog drafts & code
 * *Jeffry A. Borror* - source code for [sample trades](https://code.kx.com/q4m3/1_Q_Shock_and_Awe/#117-example-trades-table)
