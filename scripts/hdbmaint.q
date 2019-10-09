@@ -9,7 +9,7 @@ usage:{[x] errexit "Missing param(s) Usage: hdbmaint.q "," " sv "-",'string dist
 \d .
 
 /// dbmaint.q check
-if[not `addcol in key `.; .log.out "Attempting to load dbmaint.q in current directory"; @[system;"l ./dbmaint.q"; {.log.errexit "Could not load dbmaint.q"}]];
+if[not `addcol in key `.; .log.out "Attempting to load dbmaint.q in current directory"; @[system;"l ./dbmaint.q"; {.log.errexit "Could not load dbmaint.q : ",x}]];
 
 /// Parameter handling
 d:.Q.opt .z.x;
