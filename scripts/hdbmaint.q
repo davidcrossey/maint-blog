@@ -46,6 +46,14 @@ backup:{
     .log.out "Backup complete";
  }
 
+/// Wrapper functions
+\d .maint
+addcol:{[d] (get[`.] `addcol)[d[`db];d[`table];d[`colname];value d[`fn]];};
+deletecol:{[d] (get[`.] `deletecol)[d[`db];d[`table];d[`colname]];};
+renamecol:{[d] (get[`.] `renamecol)[d[`db];d[`table];d[`oldname];d[`newname]];};
+fncol:{[d] (get[`.] `fncol)[d[`db];d[`table];d[`colname];value d[`fn]];};
+\d .
+
 /// Main body
 main:{
     load_db d[`db];
@@ -54,16 +62,7 @@ main:{
 
     backup d[`db];
 
-    $[
-        d[`action]~`addcol;
-            addcol[d[`db];d[`table];d[`colname];value d[`fn]];
-        d[`action]~`deletecol;
-            deletecol[d[`db];d[`table];d[`colname]];
-        d[`action]~`renamecol;
-            renamecol[d[`db];d[`table];d[`oldname];d[`newname]];
-        d[`action]~`fncol;
-            fncol[d[`db];d[`table];d[`colname];value d[`fn]]
-    ];
+    .maint[d[`action]][d][];
 
     .log.sucexit[];
  }
