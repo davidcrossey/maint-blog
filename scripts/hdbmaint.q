@@ -69,4 +69,4 @@ main:{
  }
 
 /// Entry point
-@[main;`;{.log.err "Error running main: ",x;exit 1}];
+@[main;`;{.log.errexit "Error running main: ",x}];
