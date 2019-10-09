@@ -13,11 +13,10 @@ if[not `addcol in key `.; .log.out "Attempting to load dbmaint.q in current dire
 
 /// Parameter handling
 d:.Q.opt .z.x;
-fn:$[`fn in key d;" " sv d[`fn];""];
-d:first each d; d[`fn]:fn;
 if[not all `db`action in key d; .log.usage `db`action ];
-db:hsym `$first system raze "readlink -f ",d[`db];
-action:`$d[`action];
+d:(first each d),$[`fn in key d;enlist[`fn]!enlist " " sv d[`fn];()];
+d[`db]:hsym `$first system raze "readlink -f ",d[`db];
+d:{x[y]:`$x[y];x}[d;key[d] except `db`fn];
 
 /// Function definitions
 load_db:{
@@ -49,21 +48,21 @@ backup:{
 
 /// Main body
 main:{
-    load_db db;
+    load_db d[`db];
 
-    param_check[d;action];
+    param_check[d;d[`action]];
 
-    backup db;
+    backup d[`db];
 
     $[
-        action~`addcol;
-            addcol[db;`$d[`table];`$d[`colname];value d[`fn]];
-        action~`deletecol;
-            deletecol[db;`$d[`table];`$d[`colname]];
-        action~`renamecol;
-            renamecol[db;`$d[`table];`$d[`oldname];`$d[`newname]];
-        action~`fncol;
-            fncol[db;`$d[`table];`$d[`colname];value d[`fn]]
+        d[`action]~`addcol;
+            addcol[d[`db];d[`table];d[`colname];value d[`fn]];
+        d[`action]~`deletecol;
+            deletecol[d[`db];d[`table];d[`colname]];
+        d[`action]~`renamecol;
+            renamecol[d[`db];d[`table];d[`oldname];d[`newname]];
+        d[`action]~`fncol;
+            fncol[d[`db];d[`table];d[`colname];value d[`fn]]
     ];
 
     .log.sucexit[];
