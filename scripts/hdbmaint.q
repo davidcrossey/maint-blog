@@ -57,13 +57,9 @@ fncol:{[d] (get[`.] `fncol)[d[`db];d[`table];d[`colname];value d[`fn]];};
 /// Main body
 main:{
     load_db d[`db];
-
     param_check[d;d[`action]];
-
     backup d[`db];
-
     .maint[d[`action]][d][];
-
     .log.sucexit[];
  }
 
