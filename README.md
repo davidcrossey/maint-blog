@@ -5,7 +5,7 @@ Source code used in kdb/q Insights: Maintenance with q blog
 * [dbmaint.q](https://github.com/KxSystems/kdb/blob/master/utils/dbmaint.md)
 
 ## Authors
-* **David Crossey** - *Blog & Script author* - [KxSystems](https://github.com/KxSystems)
+* **David Crossey** - *Blog & Code author* - [KxSystems](https://github.com/KxSystems)
 
 ## Acknowledgments
 * *Tom Martin* -  review blog drafts & code
