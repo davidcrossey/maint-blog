@@ -15,8 +15,8 @@ if[not `addcol in key `.; .log.out "Attempting to load dbmaint.q in current dire
 d:.Q.opt .z.x;
 if[not all `db`action in key d; .log.usage `db`action ];
 d:(first each d),$[`fn in key d;enlist[`fn]!enlist " " sv d[`fn];()];
-d[`db]:hsym `$first system raze "readlink -f ",d[`db];
 d:{x[y]:`$x[y];x}[d;key[d] except `db`fn];
+d[`db]:hsym `$first system raze "readlink -f ",d[`db];
 
 /// Function definitions
 load_db:{
